@@ -37,6 +37,13 @@ class Generator
         }
     }
 
+    public function clearRoutes()
+    {
+        $this->clearCacheFile(
+            config('routeloader.cacheFile')
+        );
+    }
+
     public function loadCachedRoutes(string $cachePath): bool
     {
         if (Storage::exists($cachePath)) {
@@ -74,7 +81,7 @@ class Generator
         );
     }
 
-    public function clearRoutes(string $cachePath): void
+    public function clearCacheFile(string $cachePath): void
     {
         Storage::delete(
             $cachePath

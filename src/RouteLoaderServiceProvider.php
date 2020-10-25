@@ -2,6 +2,7 @@
 
 namespace Aldrumo\RouteLoader;
 
+use Aldrumo\RouteLoader\Console\ClearRoutes;
 use Aldrumo\RouteLoader\Contracts\RouteLoader;
 use Illuminate\Support\ServiceProvider;
 
@@ -42,5 +43,11 @@ class RouteLoaderServiceProvider extends ServiceProvider
             ],
             'aldrumo'
         );
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                ClearRoutes::class,
+            ]);
+        }
     }
 }

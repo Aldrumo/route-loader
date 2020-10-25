@@ -128,7 +128,7 @@ class GeneratorTest extends TestCase
             $generator->buildRoutes('slug', 'id', "'PageController@load'")
         );
 
-        $generator->clearRoutes('new-cache-routes.php');
+        $generator->clearCacheFile('new-cache-routes.php');
 
         Storage::disk('local')->assertMissing('new-cache-routes.php');
     }
@@ -147,5 +147,22 @@ class GeneratorTest extends TestCase
             4,
             resolve('router')->getRoutes()
         );
+    }
+
+    /** @test */
+    public function can_clear_routes()
+    {
+        Storage::fake('local');
+
+        $this->filledRouteLoader();
+        $generator = resolve(Generator::class);
+        $result = $generator->storeRoutes(
+            'page-routes.php',
+            $generator->buildRoutes('slug', 'id', "'PageController@load'")
+        );
+
+        $generator->clearRoutes();
+
+        Storage::disk('local')->assertMissing('page-routes.php');
     }
 }
