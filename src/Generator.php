@@ -24,9 +24,9 @@ class Generator
         }
 
         $routes = $this->buildRoutes(
-            config('routerloader.slugField'),
-            config('routerloader.idField'),
-            config('routerloader.controller')
+            config('routeloader.slugField'),
+            config('routeloader.idField'),
+            config('routeloader.controller')
         );
 
         if ($routes->count() > 0) {

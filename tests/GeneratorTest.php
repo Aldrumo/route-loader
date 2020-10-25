@@ -2,7 +2,6 @@
 
 namespace Aldrumo\RouteLoader\Tests;
 
-use Aldrumo\RouteLoader\Contracts\RouteLoader;
 use Aldrumo\RouteLoader\Generator;
 use Illuminate\Support\Facades\Storage;
 
@@ -94,6 +93,30 @@ class GeneratorTest extends TestCase
     }
 
     /** @test */
+    public function can_save_new_cache_file_when_routes_empty()
+    {
+        Storage::fake('local');
+
+        $this->emptyRouteLoader();
+        $generator = resolve(Generator::class);
+        $result = $generator->storeRoutes(
+            'new-cache-routes.php',
+            $generator->buildRoutes('slug', 'id', "'PageController@load'")
+        );
+
+        Storage::disk('local')->assertExists('new-cache-routes.php');
+
+        $cacheContents = Storage::disk('local')->get('new-cache-routes.php');
+        $expected = "<?php\n\n" .
+            "use Illuminate\Support\Facades\Route;\n\n";
+
+        $this->assertSame(
+            $expected,
+            $cacheContents
+        );
+    }
+
+    /** @test */
     public function can_delete_cache_file()
     {
         Storage::fake('local');
@@ -108,5 +131,21 @@ class GeneratorTest extends TestCase
         $generator->clearRoutes('new-cache-routes.php');
 
         Storage::disk('local')->assertMissing('new-cache-routes.php');
+    }
+
+    /** @test */
+    public function can_generate_routes()
+    {
+        $this->filledRouteLoader();
+        Storage::fake('local');
+
+        resolve(Generator::class)->generateRoutes();
+
+        Storage::disk('local')->assertExists('page-routes.php');
+
+        $this->assertCount(
+            4,
+            resolve('router')->getRoutes()
+        );
     }
 }

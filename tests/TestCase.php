@@ -29,6 +29,11 @@ class TestCase extends BaseTestCase
             'filesystems.disks.local.root',
             __DIR__ . '/Fixtures'
         );
+
+        $app['config']->set(
+            'routeloader.controller',
+            "'PageController@load'"
+        );
     }
 
     protected function emptyRouteLoader()

@@ -9,7 +9,7 @@ return [
     |
     | The controller to use when generating the sluggable routes
     */
-    'controller' => 'App\\Http\\Controller\\PageController',
+    'controller' => null,
 
     /*
     |--------------------------------------------------------------------------
