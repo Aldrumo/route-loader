@@ -2,6 +2,7 @@
 
 namespace Aldrumo\RouteLoader;
 
+use Aldrumo\RouteLoader\Contracts\RouteLoader;
 use Illuminate\Support\ServiceProvider;
 
 class RouteLoaderServiceProvider extends ServiceProvider
@@ -13,7 +14,19 @@ class RouteLoaderServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(
+            Generator::class,
+            function ($app) {
+                return new Generator(
+                    $app[RouteLoader::class]
+                );
+            }
+        );
+
+        $this->mergeConfigFrom(
+            __DIR__ . '/../config/routeloader.php',
+            'routeloader'
+        );
     }
 
     /**
@@ -23,6 +36,11 @@ class RouteLoaderServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->publishes(
+            [
+                __DIR__ . '/../config/routeloader.php' => config_path('routeloader.php'),
+            ],
+            'aldrumo'
+        );
     }
 }
