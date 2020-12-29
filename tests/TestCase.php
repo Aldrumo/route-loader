@@ -32,7 +32,7 @@ class TestCase extends BaseTestCase
 
         $app['config']->set(
             'routeloader.controller',
-            "'PageController@load'"
+            'PageController@load'
         );
     }
 

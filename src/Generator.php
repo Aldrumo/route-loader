@@ -66,7 +66,7 @@ class Generator
                 }
             )
             ->map(function ($page) use ($slugField, $idField, $controller) {
-                return "Route::get('" . $page->$slugField . "', " . $controller . ")->name('route-" .
+                return "Route::get('" . $page->$slugField . "', '" . $controller . "')->name('route-" .
                     $page->$idField . "');";
             });
     }

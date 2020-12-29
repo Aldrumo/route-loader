@@ -12,7 +12,7 @@ class GeneratorTest extends TestCase
     {
         $this->filledRouteLoader();
 
-        $routes = resolve(Generator::class)->buildRoutes('slug', 'id', "'PageController@load'");
+        $routes = resolve(Generator::class)->buildRoutes('slug', 'id', 'PageController@load');
 
         $expected = "Route::get('/', 'PageController@load')->name('route-1');\n" .
             "Route::get('/about', 'PageController@load')->name('route-2');\n" .
@@ -73,7 +73,7 @@ class GeneratorTest extends TestCase
         $generator = resolve(Generator::class);
         $result = $generator->storeRoutes(
             'new-cache-routes.php',
-            $generator->buildRoutes('slug', 'id', "'PageController@load'")
+            $generator->buildRoutes('slug', 'id', 'PageController@load')
         );
 
         Storage::disk('local')->assertExists('new-cache-routes.php');
@@ -101,7 +101,7 @@ class GeneratorTest extends TestCase
         $generator = resolve(Generator::class);
         $result = $generator->storeRoutes(
             'new-cache-routes.php',
-            $generator->buildRoutes('slug', 'id', "'PageController@load'")
+            $generator->buildRoutes('slug', 'id', 'PageController@load')
         );
 
         Storage::disk('local')->assertExists('new-cache-routes.php');
@@ -125,7 +125,7 @@ class GeneratorTest extends TestCase
         $generator = resolve(Generator::class);
         $result = $generator->storeRoutes(
             'new-cache-routes.php',
-            $generator->buildRoutes('slug', 'id', "'PageController@load'")
+            $generator->buildRoutes('slug', 'id', 'PageController@load')
         );
 
         $generator->clearCacheFile('new-cache-routes.php');
@@ -158,7 +158,7 @@ class GeneratorTest extends TestCase
         $generator = resolve(Generator::class);
         $result = $generator->storeRoutes(
             'page-routes.php',
-            $generator->buildRoutes('slug', 'id', "'PageController@load'")
+            $generator->buildRoutes('slug', 'id', 'PageController@load')
         );
 
         $generator->clearRoutes();
