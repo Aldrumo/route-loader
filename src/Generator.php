@@ -17,6 +17,12 @@ class Generator
         $this->routeLoader = $routeLoader;
     }
 
+    public function regenerateRoutes()
+    {
+        $this->clearRoutes();
+        $this->generateRoutes();
+    }
+
     public function generateRoutes()
     {
         if ($this->loadCachedRoutes(config('routeloader.cacheFile'))) {
