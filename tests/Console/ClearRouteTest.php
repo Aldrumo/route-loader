@@ -22,7 +22,7 @@ class ClearRouteTest extends TestCase
 
         Storage::disk('local')->assertExists('page-routes.php');
 
-        $this->artisan('aldrumo:clear-routes')
+        $this->artisan('aldrumo:routes:clear')
             ->expectsOutput('Compiled routes have been cleared.');
 
         Storage::disk('local')->assertMissing('page-routes.php');
